@@ -25,7 +25,6 @@ def dump_load_path
 end
 require 'bundler'
 require 'rake/clean'
-
 require 'rake/testtask'
 
 require 'cucumber'
