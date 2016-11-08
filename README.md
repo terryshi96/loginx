@@ -1,15 +1,17 @@
 # Loginx
 
+##install
+```
+gem install loginx
+```
+
 ##describe
 ```
 login server quickly without entering password
 help generate rsakey
 help send publickey
 ```
-```
-first of all
-cp loginx/bin/lx /usr/local/bin
-```
+
 ```
 config dir
 ~/.loginx/loginx.conf
