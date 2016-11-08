@@ -16,16 +16,13 @@ Gem::Specification.new do |spec|
 
 
 
-  spec.files         = ["bin/loginx"]
-  spec.bindir        = "bin"
+  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+  spec.bindir        = "/usr/local/bin"
   spec.executables   = ["bin/loginx"]
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", ">= 1.12"
   spec.add_development_dependency "rake", ">= 10.0"
-  spec.add_development_dependency "rspec", ">= 3.0"
-  spec.add_development_dependency('rdoc')
-  spec.add_development_dependency('aruba')
   spec.add_dependency('methadone', '>= 1.9.3')
-  spec.add_development_dependency('test-unit')
+
 end
