@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
 
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  spec.bindir        = "/usr/local/bin"
+  spec.bindir        = "bin"
   spec.executables   = ["bin/loginx"]
   spec.require_paths = ["lib"]
 
