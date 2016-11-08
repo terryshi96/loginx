@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    loginx (0.1.0)
+    loginx (1.0.0)
       methadone (>= 1.9.3)
 
 GEM
