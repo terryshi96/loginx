@@ -3,28 +3,75 @@
 require 'optparse'
 require 'methadone'
 require 'loginx.rb'
+require 'list.rb'
 
 class App
   include Methadone::Main
   include Methadone::CLILogging
-  configuration = {
-      port: 22
-
-  }
+  include Methadone::SH
 
   main do |arguments|
-    puts ARGV.shift
-    puts ARGV.shift
-    puts options[:p] if options[:p]
+    if ARGV.empty? && options[:L] != true
+      puts 'please try "loginx -h" for more infomation'
+      exit 1
+    end
+
+    #puts ARGV[0]
+    project_name = ARGV[0]
+    #puts ARGV[1]
+    server_alias = ARGV[1]
+    #puts options[:p] if options[:p]
+    #sh 'cp foo.txt /tmp' do
+    # Behaves exactly as before, but this block is called after
+    #end
+
   end
+
+
 
   description 'login quickly without entering password and support generating&&sending ssh_key'
-  arg :arguments, :many
-  on("-p Port","set port") do |value|#validate and read arguments
-       options[:p] = value
+  arg :arguments, :optional
+  version Loginx::VERSION
+
+
+
+  #option -L
+  on("-L","list all projects") do
+    options[:L] = true
+    a = List.new
+    a.list
+
   end
 
-  version Loginx::VERSION
+  #option -l
+  on("-l project_name","list servers under a project") do |project_name|
+    options[:l] = project_name
+    puts options[:l]
+  end
+
+  #option -u
+  on("-u user","set user (default root)") do |user|
+    options[:u] = user
+    puts options[:u]
+  end
+
+  #option -a
+  on("-a project_name server_alias ip","add a new record") do
+    options[:a] = true
+  end
+
+  #option -d
+  on("-d project_name server_alias","delete a record") do
+    options[:d] = true
+  end
+
+  #option -p
+  options[:p] = 22
+  on("-p Port","set port",/^\d+$/) do |value|#validate and read arguments
+    options[:p] = value
+
+
+  end
 
   go!
 end
