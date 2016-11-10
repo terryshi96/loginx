@@ -15,7 +15,7 @@ help send publickey
 ```
 config dir
 loginx/config/loginx.conf
-save user and path to publickey
+save user and port
 loginx/projects/default
 save server infomation
 ```
