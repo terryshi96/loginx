@@ -14,16 +14,16 @@ help send publickey
 
 ```
 config dir
-~/.loginx/loginx.conf
+loginx/config/loginx.conf
 save user and path to publickey
-~/.lobinx/projects/default
+loginx/projects/default
 save server infomation
 ```
 ###usage
 ```
 lx [project_name][server_alias]|[ip]
 
-if no project_name default project is default
+if no project_name is set default project is default
 ```
 ###argvs
 ```
@@ -45,7 +45,7 @@ password should be encrypted
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/loginx. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/terryshi96/loginx. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License

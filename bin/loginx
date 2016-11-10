@@ -1,9 +1,15 @@
 #!/usr/bin/env ruby
-
+# coding: utf-8
 require 'optparse'
 require 'methadone'
 require 'loginx.rb'
 require 'list.rb'
+require 'yaml'
+require 'setuser.rb'
+require 'setport.rb'
+require 'record.rb'
+
+
 
 class App
   include Methadone::Main
@@ -11,16 +17,29 @@ class App
   include Methadone::SH
 
   main do |arguments|
-    if ARGV.empty? && options[:L] != true
-      puts 'please try "loginx -h" for more infomation'
+
+    #initialize
+    config_path = '../config/loginx.yml'
+    # "#{config_path}"
+    if File.exist? ("#{config_path}")
+    else
+      file = File.new("#{config_path}","w")
+      file << "config:\n"
+      file << " user: root\n"
+      file << " port: 22"
+      file.close
+    end
+    if File.exist?('../projects/default.yml')
+    else
+      file = File.new("../projects/default.yml","w")
+    end
+
+    #input control
+    if options.empty? && ARGV.empty?
+      puts 'please use "loginx -h" for more infomation'
       exit 1
     end
 
-    #puts ARGV[0]
-    project_name = ARGV[0]
-    #puts ARGV[1]
-    server_alias = ARGV[1]
-    #puts options[:p] if options[:p]
     #sh 'cp foo.txt /tmp' do
     # Behaves exactly as before, but this block is called after
     #end
@@ -29,48 +48,51 @@ class App
 
 
 
-  description 'login quickly without entering password and support generating&&sending ssh_key'
+  description "login quickly without entering password and support generating&&sending ssh_key\n if no project is set we use default"
   arg :arguments, :optional
   version Loginx::VERSION
 
 
 
-  #option -L
+  #option -L in list.rb
   on("-L","list all projects") do
     options[:L] = true
-    a = List.new
-    a.list
-
+    list = List.new
+    list.list_all
   end
 
-  #option -l
-  on("-l project_name","list servers under a project") do |project_name|
+  #option -l in list.rb
+  on("-l project","list servers under a project") do |project_name|
     options[:l] = project_name
     puts options[:l]
+
   end
 
-  #option -u
-  on("-u user","set user (default root)") do |user|
-    options[:u] = user
-    puts options[:u]
-  end
-
-  #option -a
-  on("-a project_name server_alias ip","add a new record") do
+  #option -a in record.rb
+  on("-a project server_alias ip password","add a new record") do |project_name|
     options[:a] = true
   end
 
-  #option -d
-  on("-d project_name server_alias","delete a record") do
+  #option -d in record.rb
+  on("-d project server_alias","delete a record") do |project_name|
     options[:d] = true
   end
 
-  #option -p
-  options[:p] = 22
-  on("-p Port","set port",/^\d+$/) do |value|#validate and read arguments
+  #option -u in Setuser.rb
+  on("-u user","set user (default root)") do |user|
+    options[:u] = user
+    set = Setuser.new(options[:u])
+    set.update
+    puts "now default user is #{set.user}"
+
+  end
+
+  #option -p in Setport.rb
+  on("-p Port","set port (default 22)") do |value|
     options[:p] = value
-
-
+    set = Setport.new(options[:p])
+    set.update
+    puts "now default port is #{set.port}"
   end
 
   go!
