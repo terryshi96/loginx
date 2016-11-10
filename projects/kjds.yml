@@ -1,0 +1,8 @@
+---
+prods:
+  ip: '127.0.0.1'
+  password: 'password1'
+
+prodd:
+  ip: '0.0.0.0'
+  password: 'password2'

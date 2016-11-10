@@ -57,15 +57,15 @@ class App
   #option -L in list.rb
   on("-L","list all projects") do
     options[:L] = true
-    list = List.new
+    list = List.new("default")
     list.list_all
   end
 
   #option -l in list.rb
   on("-l project","list servers under a project") do |project_name|
     options[:l] = project_name
-    puts options[:l]
-
+    list = List.new(project_name)
+    list.list_project(project_name)
   end
 
   #option -a in record.rb
@@ -96,4 +96,5 @@ class App
   end
 
   go!
+
 end
