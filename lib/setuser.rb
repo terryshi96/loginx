@@ -9,10 +9,10 @@ class Setuser
 
   #update value
   def update
-    @config =  YAML::load (File.open("../config/loginx.yml"))
-    @config['config']['user'] = self.user
+    config =  YAML::load (File.open("../config/loginx.yml"))
+    config['config']['user'] = self.user
     File.open("../config/loginx.yml","w") do |file|
-      file.write @config.to_yaml
+      file.write config.to_yaml
     end
   end
 

@@ -20,6 +20,11 @@ class List
       if File.basename(filename,'.yml') == value
         #load yaml file
         projects =  YAML::load (File.open("../projects/#{value}.yml"))
+       # puts projects
+        if projects == nil
+          puts "no servers in this project"
+          exit 1
+        end
         projects.each do |item|
           puts item
         end

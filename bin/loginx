@@ -70,7 +70,12 @@ class App
 
   #option -a in record.rb
   on("-a project server_alias ip password","add a new record") do |project_name|
-    options[:a] = true
+      options[:a] = project_name
+      server_alias = ARGV.shift
+      ip = ARGV.shift
+      password = ARGV.shift
+      record = Record.new(server_alias,ip,password)
+      record.add_record(project_name)
   end
 
   #option -d in record.rb
