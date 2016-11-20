@@ -13,6 +13,7 @@ class Setuser
     config['config']['user'] = self.user
     File.open("../config/loginx.yml","w") do |file|
       file.write config.to_yaml
+      file.close
     end
   end
 

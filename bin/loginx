@@ -7,8 +7,9 @@ require 'list.rb'
 require 'yaml'
 require 'setuser.rb'
 require 'setport.rb'
-require 'record.rb'
-
+require 'add.rb'
+require 'delete.rb'
+require 'core.rb'
 
 
 class App
@@ -29,10 +30,10 @@ class App
       file << " port: 22"
       file.close
     end
-    if File.exist?('../projects/default.yml')
-    else
-      file = File.new("../projects/default.yml","w")
-    end
+    #if File.exist?('../projects/default.yml')
+    #else
+    #  file = File.new("../projects/default.yml","w")
+    #end
 
     #input control
     if options.empty? && ARGV.empty?
@@ -48,7 +49,7 @@ class App
 
 
 
-  description "login quickly without entering password and support generating&&sending ssh_key\n if no project is set we use default"
+  description "login quickly without entering password and support generating&&sending ssh_key\n"
   arg :arguments, :optional
   version Loginx::VERSION
 
@@ -68,19 +69,35 @@ class App
     list.list_project(project_name)
   end
 
-  #option -a in record.rb
+  #option -a in add.rb
   on("-a project server_alias ip password","add a new record") do |project_name|
       options[:a] = project_name
+      if ARGV.count != 3
+        puts "you must offer server_alias ip and password"
+        exit 1
+      end
       server_alias = ARGV.shift
       ip = ARGV.shift
       password = ARGV.shift
-      record = Record.new(server_alias,ip,password)
+      record = ADD.new(server_alias,ip,password)
       record.add_record(project_name)
   end
 
-  #option -d in record.rb
+  #option -d in delete.rb
   on("-d project server_alias","delete a record") do |project_name|
-    options[:d] = true
+    options[:d] = project_name
+    if ARGV.count != 1 && ARGV.count != 0
+      puts "need project and server alias or just project"
+      exit 1
+    end
+    if ARGV.empty?
+      record = Delete.new
+      record.del_file(project_name)
+      exit 0
+    end
+    server_alias = ARGV.shift
+    record = Delete.new(server_alias)
+    record.del_record(project_name)
   end
 
   #option -u in Setuser.rb

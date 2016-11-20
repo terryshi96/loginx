@@ -3,6 +3,7 @@ require 'find'
 
 class List
   attr_accessor :project
+  @flag = 0
 
   def initialize(value)
     self.project = value
@@ -19,6 +20,7 @@ class List
     Find.find("../projects/") do |filename|
       if File.basename(filename,'.yml') == value
         #load yaml file
+        @flag = 1
         projects =  YAML::load (File.open("../projects/#{value}.yml"))
        # puts projects
         if projects == nil
@@ -30,6 +32,12 @@ class List
         end
       end
     end
+
+    if @flag == nil
+      puts "cant find this project"
+      exit 1
+    end
+
   end
 
 

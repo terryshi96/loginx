@@ -13,6 +13,7 @@ class Setport
     config['config']['port'] = self.port
     File.open("../config/loginx.yml","w") do |file|
       file.write config.to_yaml
+      file.close
     end
   end
 

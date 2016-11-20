@@ -13,17 +13,17 @@ help send publickey
 ```
 
 ```
+all configurations are in yaml files and you can directly edit those config files
 config dir
 loginx/config/loginx.conf
 save user and port
-loginx/projects/default
+loginx/projects
 save server infomation
 ```
 ###usage
 ```
 lx [project_name][server_alias]|[ip]
 
-if no project_name is set default project is default
 ```
 ###argvs
 ```

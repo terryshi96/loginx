@@ -1,4 +1,4 @@
 ---
 config:
-  user: atyun
+  user: root
   port: '32'
