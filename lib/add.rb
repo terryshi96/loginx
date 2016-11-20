@@ -23,6 +23,7 @@ class ADD
           puts "the server alias already exists,will you overwrite it(y/n)"
           gets
           unless $_.chomp =='y'
+            puts "nothing changed"
             exit 1
           end
         end
@@ -30,8 +31,9 @@ class ADD
       end
     end
 
+
     if @flag == nil
-      puts "project #{value} does not exist , will you create it(y)"
+      puts "project #{value} does not exist , will you create it(y\n)"
       gets
       if $_.chomp == 'y'
         file = File.new("../projects/#{value}.yml","w")
@@ -40,8 +42,7 @@ class ADD
         file << " ip: nil\n"
         file << " password: nil\n"
         file.close
-        puts "create successfully and please enter last command again"
-        exit 1
+        add_record(value)
       else
         puts "nothing changed"
         exit 1
@@ -55,6 +56,10 @@ class ADD
       puts "update successfully"
     end
 
+
+
   end
+
+
 
 end

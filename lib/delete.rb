@@ -41,6 +41,17 @@ class Delete
 
 
   def del_file(value)
+    Find.find("../projects/") do |filename|
+      if File.basename(filename,'.yml') == value
+        @flag = 1
+      end
+    end
+
+    if @flag == nil
+      puts "project #{value} does not exist!"
+      exit 1
+    end
+
     puts "Are you sure to delete it(y/n)"
     gets
     if $_.chomp =='y'

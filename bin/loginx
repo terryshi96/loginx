@@ -21,7 +21,7 @@ class App
 
     #initialize
     config_path = '../config/loginx.yml'
-    # "#{config_path}"
+
     if File.exist? ("#{config_path}")
     else
       file = File.new("#{config_path}","w")
@@ -30,20 +30,12 @@ class App
       file << " port: 22"
       file.close
     end
-    #if File.exist?('../projects/default.yml')
-    #else
-    #  file = File.new("../projects/default.yml","w")
-    #end
 
     #input control
     if options.empty? && ARGV.empty?
       puts 'please use "loginx -h" for more infomation'
       exit 1
     end
-
-    #sh 'cp foo.txt /tmp' do
-    # Behaves exactly as before, but this block is called after
-    #end
 
   end
 

@@ -22,7 +22,9 @@ save server infomation
 ```
 ###usage
 ```
-lx [project_name][server_alias]|[ip]
+loginx [project_name][server_alias]|[ip]
+
+recommend configuring loginx alias---lx
 
 ```
 ###argvs
