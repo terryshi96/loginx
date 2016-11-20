@@ -44,8 +44,6 @@ class ADD
       end
     end
 
-  end
-
 
     File.open("../projects/#{value}.yml","w") do |file|
       YAML.dump(@load,file)
@@ -55,6 +53,7 @@ class ADD
     end
 
 
+  end
 
 end
 
