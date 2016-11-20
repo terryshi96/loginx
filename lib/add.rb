@@ -1,7 +1,7 @@
 # coding: utf-8
 class ADD
   attr_accessor :server_alias, :ip, :password
-  @flag = 0
+
 
   def initialize(server_alias,ip,password)
     self.server_alias = server_alias
@@ -10,9 +10,7 @@ class ADD
   end
 
   def add_record(value)
-    Find.find("../projects/") do |filename|
-      if File.basename(filename,'.yml') == value
-        @flag = 1
+    if Loginx::Exist.project_exist?(value)
         @info = {}
         detail = {}
         detail['ip'] = self.ip
@@ -28,11 +26,8 @@ class ADD
           end
         end
         @load.merge!(@info)
-      end
-    end
 
-
-    if @flag == nil
+    else
       puts "project #{value} does not exist , will you create it(y\n)"
       gets
       if $_.chomp == 'y'
@@ -49,6 +44,9 @@ class ADD
       end
     end
 
+  end
+
+
     File.open("../projects/#{value}.yml","w") do |file|
       YAML.dump(@load,file)
       file.close
@@ -58,8 +56,7 @@ class ADD
 
 
 
-  end
-
-
-
 end
+
+
+

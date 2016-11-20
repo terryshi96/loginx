@@ -3,7 +3,6 @@ require 'find'
 
 class List
   attr_accessor :project
-  @flag = 0
 
   def initialize(value)
     self.project = value
@@ -17,12 +16,8 @@ class List
 
   #find project and list records
   def list_project(value)
-    Find.find("../projects/") do |filename|
-      if File.basename(filename,'.yml') == value
-        #load yaml file
-        @flag = 1
+    if Loginx::Exist.project_exist?(value)
         projects =  YAML::load (File.open("../projects/#{value}.yml"))
-       # puts projects
         if projects == nil
           puts "no servers in this project"
           exit 1
@@ -30,15 +25,10 @@ class List
         projects.each do |item|
           puts item
         end
-      end
-    end
-
-    if @flag == nil
+    else
       puts "cant find this project"
       exit 1
     end
-
   end
-
 
 end

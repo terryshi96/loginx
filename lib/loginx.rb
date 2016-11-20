@@ -7,13 +7,16 @@ module Loginx
 
     def self.project_exist?(value)
       project_path = "../projects/"
-
+      @flag = 0
       Find.find("#{project_path}") do |filename|
         if File.basename(filename,'.yml') == value
+          @flag = 1
           return true
-        else
-          return false
         end
+      end
+
+      if @flag == 0
+        return false
       end
     end
 
