@@ -3,20 +3,12 @@
   <component name="CompassSettings">
     <option name="compassExecutableFilePath" value="$USER_HOME$/.rvm/gems/ruby-2.3.0/gems/compass-0.12.7/bin/compass" />
   </component>
-  <component name="FacetManager">
-    <facet type="gem" name="Gem">
-      <configuration>
-        <option name="GEM_APP_ROOT_PATH" value="" />
-        <option name="GEM_APP_TEST_PATH" value="" />
-        <option name="GEM_APP_LIB_PATH" value="" />
-      </configuration>
-    </facet>
-  </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="bundler (v1.12.5, RVM: ruby-2.3.0) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="rake (v11.2.2, RVM: ruby-2.3.0) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="methadone (v1.9.3, RVM: ruby-2.3.0) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rake (v11.3.0, RVM: ruby-2.3.0) [gem]" level="application" />
   </component>
 </module>

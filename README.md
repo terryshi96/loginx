@@ -15,9 +15,9 @@ help send publickey
 ```
 all configurations are in yaml files and you can directly edit those config files
 config dir
-loginx/config/loginx.conf
+~/.loginx/config/loginx.conf
 save user and port
-loginx/projects
+~/.loginx/projects
 save server infomation
 ```
 ###usage
