@@ -7,8 +7,9 @@ class Delete_p
   end
 
   def del_record(value)
+    project_path = File.expand_path("~/.loginx/projects/")
     if Loginx::Exist.project_exist?(value)
-        @load = YAML::load(File.open("../projects/#{value}.yml"))
+        @load = YAML::load(File.open("#{project_path}/#{value}.yml"))
         if !@load.has_key?(self.server_alias)
           puts "sorry the server alias does not exist"
           exit 1
@@ -24,7 +25,7 @@ class Delete_p
     end
 
 
-    File.open("../projects/#{value}.yml","w") do |file|
+    File.open("#{project_path}/#{value}.yml","w") do |file|
       YAML.dump(@load,file)
       file.close
       #file.write @info.to_yaml
@@ -41,7 +42,7 @@ class Delete_p
     gets
     if $_.chomp =='y'
 
-    File.delete("../projects/#{value}.yml")
+    File.delete("#{project_path}/#{value}.yml")
     puts "update successfully"
     end
     else
