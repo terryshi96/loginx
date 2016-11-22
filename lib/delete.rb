@@ -1,5 +1,5 @@
 # coding: utf-8
-class Delete
+class Delete_p
   attr_accessor :server_alias
 
   def initialize(server_alias = nil)

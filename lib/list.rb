@@ -1,7 +1,7 @@
 # coding: utf-8
 require 'find'
 
-class List
+class List_p
   attr_accessor :project
 
   def initialize(value)

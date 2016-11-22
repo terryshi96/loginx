@@ -10,6 +10,10 @@ require 'setport.rb'
 require 'add.rb'
 require 'delete.rb'
 require 'core.rb'
+require 'fileutils'
+
+
+
 
 
 class App
@@ -20,14 +24,15 @@ class App
   main do |arguments|
 
     #initialize
-    config_path = '../config/loginx.yml'
-
-    if File.exist? ("#{config_path}")
+    config_path = File.expand_path("~/.loginx/config/")
+    FileUtils.mkdir_p(config_path) unless File.exists?(config_path)
+    if File.exist? ("#{config_path}/config.yml")
     else
-      file = File.new("#{config_path}","w")
+      file = File.new("#{config_path}/config.yml","w")
+      file << "---\n"
       file << "config:\n"
       file << " user: root\n"
-      file << " port: 22"
+      file << " port: 22\n"
       file.close
     end
 
@@ -50,14 +55,14 @@ class App
   #option -L in list.rb
   on("-L","list all projects") do
     options[:L] = true
-    list = List.new("default")
+    list = List_p.new("default")
     list.list_all
   end
 
   #option -l in list.rb
   on("-l project","list servers under a project") do |project_name|
     options[:l] = project_name
-    list = List.new(project_name)
+    list = List_p.new(project_name)
     list.list_project(project_name)
   end
 
@@ -83,12 +88,12 @@ class App
       exit 1
     end
     if ARGV.empty?
-      record = Delete.new
+      record = Delete_p.new
       record.del_file(project_name)
       exit 0
     end
     server_alias = ARGV.shift
-    record = Delete.new(server_alias)
+    record = Delete_p.new(server_alias)
     record.del_record(project_name)
   end
 
@@ -97,7 +102,6 @@ class App
     options[:u] = user
     set = Setuser.new(options[:u])
     set.update
-    puts "now default user is #{set.user}"
 
   end
 
@@ -106,7 +110,6 @@ class App
     options[:p] = value
     set = Setport.new(options[:p])
     set.update
-    puts "now default port is #{set.port}"
   end
 
   go!
