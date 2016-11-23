@@ -5,6 +5,8 @@ require 'methadone'
 require 'loginx.rb'
 require 'list.rb'
 require 'yaml'
+require 'rubygems'
+require 'ruby_expect'
 require 'setuser.rb'
 require 'setport.rb'
 require 'add.rb'
@@ -45,6 +47,14 @@ class App
       exit 1
     end
 
+    if ARGV.count == 2
+      project = ARGV[0]
+      server_alias = ARGV[1]
+
+      core = Core_p.new(project,server_alias)
+      core.login
+
+    end
   end
 
 
