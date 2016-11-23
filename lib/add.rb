@@ -29,7 +29,7 @@ class ADD
         @load.merge!(@info)
 
     else
-      puts "project #{value} does not exist , will you create it(y\n)"
+      puts "project #{value} does not exist , will you create it(y/n)"
       gets
       if $_.chomp == 'y'
         file = File.new("#{project_path}/#{value}.yml","w")

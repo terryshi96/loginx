@@ -18,6 +18,9 @@ class Delete_p
         gets
         if $_.chomp =='y'
           @load.delete(self.server_alias)
+        else
+          puts "nothing changed"
+          exit 1
         end
     else
       puts "project #{value} does not exist!"
@@ -36,6 +39,8 @@ class Delete_p
 
 
   def del_file(value)
+    project_path = File.expand_path("~/.loginx/projects/")
+
     if Loginx::Exist.project_exist?(value)
 
     puts "Are you sure to delete it(y/n)"
@@ -44,6 +49,9 @@ class Delete_p
 
     File.delete("#{project_path}/#{value}.yml")
     puts "update successfully"
+    else
+      puts "nothing changed"
+      exit 1
     end
     else
       puts "project #{value} does not exist!"
