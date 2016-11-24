@@ -1,13 +1,17 @@
 # coding: utf-8
 class Core_p
   attr_accessor :project , :server_alias
-  $public_key_path = File.expand_path("/temp/.ssh/id_rsa.pub")
+  $public_key_path = File.expand_path("~/.ssh/id_rsa.pub")
   $config_path = File.expand_path("~/.loginx/config/config.yml")
   $project_path = File.expand_path("~/.loginx/projects/")
 
   def initialize(project,server_alias)
     self.project = project
     self.server_alias = server_alias
+    if !File.exist?("#{$public_key_path}")
+      puts "you dont have a pair of ssh key,we will generate it"
+      self.generate_key
+    end
   end
 
   #when trying to send public key
@@ -20,12 +24,14 @@ class Core_p
 
   #when asking for password
   def send_key
-    if !File.exist?("#{$public_key_path}")
-      puts "you dont have a pair of ssh key,we will generate it"
-      self.generate_key
-    end
-    config =  YAML::load (File.open("#{$config_path}"))
-    info = YAML::load(File.open("#{$project_path}/#{self.project}.yml"))
+    if Loginx::Exist.project_exist?(self.project)
+      config =  YAML::load (File.open("#{$config_path}"))
+      info = YAML::load(File.open("#{$project_path}/#{self.project}.yml"))
+      if !info.has_key?(self.server_alias)
+        puts "sorry the server alias does not exist"
+        exit 1
+      end
+
     user = config['config']['user']
     ip = info[self.server_alias]['ip']
     password = info[self.server_alias]['password']
@@ -49,16 +55,26 @@ class Core_p
         run
       end
     end
+    else
+      puts "project does not exist"
+      exit 1
+    end
 
 
   end
 
   def login
-    config =  YAML::load (File.open("#{$config_path}"))
-    info = YAML::load(File.open("#{$project_path}/#{self.project}.yml"))
+    if Loginx::Exist.project_exist?(self.project)
+      config =  YAML::load (File.open("#{$config_path}"))
+      info = YAML::load(File.open("#{$project_path}/#{self.project}.yml"))
+      if !info.has_key?(self.server_alias)
+        puts "sorry the server alias does not exist"
+        exit 1
+      end
     user = config['config']['user']
     port = config['config']['port']
     ip = info[self.server_alias]['ip']
+    password = info[self.server_alias]['password']
     cmd = "ssh -p #{port} #{user}@#{ip}"
     exp = RubyExpect::Expect.spawn("#{cmd}")
     exp.procedure do
@@ -72,7 +88,7 @@ class Core_p
         end
 
         expect /assword/ do
-          Core_p::send_key
+          send "#{password}"
         end
 
         expect /\$\s+$/ do
@@ -82,6 +98,11 @@ class Core_p
         run
       end
     end
+    else
+      puts "project does not exist"
+      exit 1
+    end
   end
+
 
 end
