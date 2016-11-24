@@ -21,48 +21,6 @@ class Core_p
       `#{cmd}`
   end
 
-
-  #when asking for password
-  def send_key
-    if Loginx::Exist.project_exist?(self.project)
-      config =  YAML::load (File.open("#{$config_path}"))
-      info = YAML::load(File.open("#{$project_path}/#{self.project}.yml"))
-      if !info.has_key?(self.server_alias)
-        puts "sorry the server alias does not exist"
-        exit 1
-      end
-
-    user = config['config']['user']
-    ip = info[self.server_alias]['ip']
-    password = info[self.server_alias]['password']
-    cmd = "ssh-copy-id -i #{user}@#{ip}"
-
-    #expect 2 conditions
-    exp = RubyExpect::Expect.spawn("#{cmd}")
-    exp.procedure do
-      any do
-        expect /Permission denied/ do
-          puts "this user is not allowed"
-        end
-
-        expect /continue connecting/ do
-          send "yes"
-        end
-
-        expect /assword/ do
-          send "#{password}"
-        end
-        run
-      end
-    end
-    else
-      puts "project does not exist"
-      exit 1
-    end
-
-
-  end
-
   def login
     if Loginx::Exist.project_exist?(self.project)
       config =  YAML::load (File.open("#{$config_path}"))
@@ -87,14 +45,36 @@ class Core_p
           send "yes"
         end
 
-        expect /assword/ do
-          send "#{password}"
-        end
-
         expect /\$\s+$/ do
-          puts "login successfully"
+          puts "login successfully and press return to continue"
           interact
         end
+
+        expect /assword/ do
+          cmd = "ssh-copy-id -i #{user}@#{ip}"
+          exp2 = RubyExpect::Expect.spawn("#{cmd}")
+          exp2.procedure do
+            any do
+              expect /Permission denied/ do
+                puts "this user is not allowed"
+              end
+
+              expect /continue connecting/ do
+                send "yes"
+              end
+
+              expect /assword/ do
+                send "#{password}"
+                sleep 3
+                puts "send ssh key successfully, now you can try again, or use |ssh #{user}@#{ip}|"
+                exit 0
+              end
+
+              run
+            end
+          end
+        end
+
         run
       end
     end
