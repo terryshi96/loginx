@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{quick login}
   spec.description   = %q{quick login}
   spec.homepage      = "https://github.com/terryshi96/loginx"
-  spec.license       = ""
+  spec.license       = "MIT"
 
 
 
