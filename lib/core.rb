@@ -50,6 +50,11 @@ class Core_p
           interact
         end
 
+        expect /\#\s+$/ do
+          puts "login successfully and press return to continue"
+          interact
+        end
+
         expect /assword/ do
           cmd = "ssh-copy-id -i #{user}@#{ip}"
           exp2 = RubyExpect::Expect.spawn("#{cmd}")
