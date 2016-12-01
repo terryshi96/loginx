@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    loginx (1.1.0)
+    loginx (1.2.0)
       methadone (>= 1.9.3)
       ruby_expect
 
