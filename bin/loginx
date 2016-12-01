@@ -80,7 +80,7 @@ class App
   end
 
   #option -a in add.rb
-  on("-a project server_alias ip password","add a new record") do |project_name|
+  on("-a project server_alias ip 'password'","add a new record") do |project_name|
       options[:a] = project_name
       if ARGV.count != 3
         puts "you must offer server_alias ip and password"

@@ -41,6 +41,10 @@ class Core_p
           puts "this user is not allowed"
         end
 
+        expect /Connection refused/ do
+          puts "please check your port setting or password"
+        end
+
         expect /continue connecting/ do
           send "yes"
         end
@@ -71,7 +75,7 @@ class Core_p
               expect /assword/ do
                 send "#{password}"
                 sleep 3
-                puts "send ssh key successfully, now you can try again, or use |ssh #{user}@#{ip}|"
+                puts "now you can try again, or use |ssh #{user}@#{ip}| if failed please check your password"
                 exit 0
               end
 

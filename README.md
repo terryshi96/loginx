@@ -32,7 +32,7 @@ recommend configuring loginx alias---lx
 -L list all projects
 -l [project_name] list all hosts in the project
 -u [username] define user default root
--a [project_name][server_alias][ip]  add a record default project is default
+-a [project_name][server_alias][ip][password] add a record default project is default
 -d [project_name][server_alias]  deleta a record
 -p [port]  port default 22
 -h/no argv  help
