@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["terryshi96@yahoo.com"]
 
   spec.summary       = %q{quick login}
-  spec.description   = %q{quick login}
+  spec.description   = %q{quick login using ssh key and manage your server infomation}
   spec.homepage      = "https://github.com/terryshi96/loginx"
   spec.license       = "MIT"
 
