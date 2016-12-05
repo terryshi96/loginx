@@ -29,47 +29,37 @@ class Core_p
         puts "sorry the server alias does not exist"
         exit 1
       end
-    user = config['config']['user']
-    port = config['config']['port']
-    ip = info[self.server_alias]['ip']
-    password = info[self.server_alias]['password']
-    cmd = "ssh -p #{port} #{user}@#{ip}"
-    exp = RubyExpect::Expect.spawn("#{cmd}")
-    exp.procedure do
-      any do
-        expect /Permission denied/ do
-          puts "this user is not allowed"
-        end
+      user = config['config']['user']
+      port = config['config']['port']
+      ip = info[self.server_alias]['ip']
+      password = info[self.server_alias]['password']
 
-        expect /Connection refused/ do
-          puts "please check your port setting or password"
-        end
-
-        expect /continue connecting/ do
-          send "yes"
-        end
-
-        expect /\$\s+$/ do
-          puts "login successfully and press return to continue"
-          interact
-        end
-
-        expect /\#\s+$/ do
-          puts "login successfully and press return to continue"
-          interact
-        end
-
-        expect /assword/ do
-          cmd = "ssh-copy-id -i #{user}@#{ip}"
-          exp2 = RubyExpect::Expect.spawn("#{cmd}")
-          exp2.procedure do
+        puts "do you want to send your ssh key"
+        puts "enter return to skip or 'y' to continue to send your key"
+        flag = STDIN.gets.chomp
+        if flag == 'y'
+          cmd2 = "ssh-copy-id -i #{user}@#{ip}"
+          #exec "#{cmd2}"
+          exp = RubyExpect::Expect.spawn("#{cmd2}")
+          exp.procedure do
             any do
               expect /Permission denied/ do
                 puts "this user is not allowed"
+                exit 0
               end
 
               expect /continue connecting/ do
                 send "yes"
+              end
+
+              expect /Connection refused/ do
+                puts "please check your port setting or password"
+                exit 0
+              end
+
+              expect /already exist/ do
+                puts "you already added keys before"
+                exit 0
               end
 
               expect /assword/ do
@@ -84,9 +74,8 @@ class Core_p
           end
         end
 
-        run
-      end
-    end
+      cmd = "ssh -p #{port} #{user}@#{ip}"
+      exec "#{cmd}"
     else
       puts "project does not exist"
       exit 1
