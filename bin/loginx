@@ -2,9 +2,9 @@
 # coding: utf-8
 require 'optparse'
 require 'methadone'
-require 'loginx.rb'
-require 'list.rb'
 require 'yaml'
+require 'loginx'
+require 'list.rb'
 require 'rubygems'
 require 'ruby_expect'
 require 'setuser.rb'
@@ -13,10 +13,6 @@ require 'add.rb'
 require 'delete.rb'
 require 'core.rb'
 require 'fileutils'
-
-
-
-
 
 class App
   include Methadone::Main
@@ -126,5 +122,4 @@ class App
   end
 
   go!
-
 end

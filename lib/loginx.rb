@@ -2,7 +2,6 @@
 require "loginx/version"
 
 module Loginx
-  # Your code goes here...
   class Exist
 
     def self.project_exist?(value)
@@ -10,23 +9,20 @@ module Loginx
       @flag = 0
 
       if File.exist?("#{project_path}")
-      Find.find("#{project_path}") do |filename|
-        if File.basename(filename,'.yml') == value
-          @flag = 1
-          return true
+        Find.find("#{project_path}") do |filename|
+          if File.basename(filename, '.yml') == value
+            @flag = 1
+            return true
+          end
         end
-      end
 
-      if @flag == 0
-        return false
-      end
+        if @flag == 0
+          return false
+        end
 
       else
         puts "initialize successfully,please try again"
       end
-
     end
-
-
   end
 end

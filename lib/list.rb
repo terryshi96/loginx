@@ -4,7 +4,6 @@ require 'find'
 class List_p
   attr_accessor :project
 
-
   def initialize(value)
     self.project = value
   end
