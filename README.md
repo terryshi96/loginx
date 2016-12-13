@@ -1,6 +1,6 @@
 # Loginx
 
-Loginx 可以帮助我们方便登录到一组不同项目锁关联的服务器上。
+Loginx 
 
 ##install
 ```
@@ -53,12 +53,9 @@ add using [tab] to complete command
 password should be encrypted
 ```
 
-## 开发细节
+## details
 
-通过 [`methadone`](https://github.com/davetron5000/methadone) 创建 Ruby 命令行应用，然后，通过 [`ruby_expect`](https://github.com/abates/ruby_expect) 执行在服务器上的远程的命令。
-
->PS: expect 是一个比较的小众的可以访问和操作服务器的语言 ，具体的操作，可以参考: http://bbs.yundianjia.net/d/223-expect
-
+using [`methadone`](https://github.com/davetron5000/methadone) to create Ruby console application,using [`ruby_expect`](https://github.com/abates/ruby_expect) to execute remote command
 
 
 ## Contributing
