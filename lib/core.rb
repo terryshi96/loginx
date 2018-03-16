@@ -49,7 +49,7 @@ class Core_p
             end
 
             expect /continue connecting/ do
-              send "yes\r"
+              send "yes"
             end
 
             expect /Connection refused/ do
@@ -63,12 +63,8 @@ class Core_p
             end
 
             expect /assword/ do
-              send "#{password}\r"
-              sleep 3
-              puts "now you can try again, or use |ssh #{user}@#{ip}| if failed please check your password"
-              exit 0
+              send "#{password}"
             end
-
             run
           end
         end
