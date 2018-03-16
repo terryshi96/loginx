@@ -2,12 +2,12 @@
 
 Loginx 
 
-##install
+## install
 ```
 gem install loginx
 ```
 
-##describe
+## describe
 
 
 ```
